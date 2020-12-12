@@ -34,7 +34,7 @@ def q1(g, w):
     mst_prim(g, w, r)
 
     # TODO trace back to get MST
-    
+
 
 if __name__ == '__main__':
     g = Graph()  # create graph
