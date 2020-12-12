@@ -23,10 +23,19 @@ class Edge:
 
 
 class Vertice:
-    def __init__(self, id, key=None, pi=None):
+    def __init__(self, id, key=float('inf'), pi=float('inf')):
         self.id = id
         self.key = key
         self.pi = pi
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __gt__(self, other):
+        return self.key >= other.key
+
+    def __lt__(self, other):
+        return self.key < other.key
 
 
 class Graph:

@@ -2,7 +2,7 @@ class MinHeap:
     def __init__(self, max_size):
         self.maxsize = max_size
         self.size = 0
-        self.Heap = [0] * (self.maxsize + 1)
+        self.Heap = [0] * self.maxsize
         self.FRONT = 1
 
     def get_parent(self, pos):
@@ -24,9 +24,9 @@ class MinHeap:
         if self.size >= self.maxsize:
             return
         self.size += 1
-        self.Heap[self.size] = element
+        self.Heap[self.size - 1] = element
 
-        current = self.size
+        current = self.size - 1
 
         while self.Heap[current] < self.Heap[self.get_parent(current)]:
             self.swap(current, self.get_parent(current))
@@ -59,7 +59,8 @@ class MinHeap:
 
     def extract_min(self):
         popped = self.Heap[self.FRONT]
-        self.Heap[self.FRONT] = self.Heap[self.size]
+        self.Heap[self.FRONT] = self.Heap[self.size - 1]
         self.size -= 1
-        self.min_heapify(self.FRONT)
+        if self.size > 0:
+            self.min_heapify(self.FRONT)
         return popped
