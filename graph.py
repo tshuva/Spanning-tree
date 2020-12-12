@@ -1,0 +1,43 @@
+import random
+from globals import *
+
+def generate_veritces():
+    return [Vertice(id=i) for i in range(N)]
+
+
+def generate_edges():
+    edges = []
+    while len(edges) < M:
+        e = Edge(random.randint(0, N), random.randint(0, N))
+        if not (e.src == e.dest or e in edges or Edge(e.dest, e.src) in edges):
+            edges.append(e)
+
+    return edges
+
+
+class Edge:
+    def __init__(self, src, dest):
+        self.src = src
+        self.dest = dest
+
+
+class Vertice:
+    def __init__(self, id, key=None, pi=None):
+        self.id = id
+        self.key = key
+        self.pi = pi
+
+
+class Graph:
+
+    def __init__(self, vertices=None, edges=None):
+        self.V = vertices if vertices else generate_veritces()
+        self.E = edges if edges else generate_edges()
+
+        # create adjacency lists
+        self.adj = [[] for v in self.V]
+
+        # add each edge to its proper adj list - each edge goes both ways (undirected graph)
+        for e in self.E:
+            self.adj[e.src].append(e.dest)
+            self.adj[e.dest].append(e.src)
