@@ -1,6 +1,7 @@
 import random
 from globals import *
 
+
 def generate_veritces():
     return [Vertice(id=i) for i in range(N)]
 
@@ -8,7 +9,7 @@ def generate_veritces():
 def generate_edges():
     edges = []
     while len(edges) < M:
-        e = Edge(random.randint(0, N), random.randint(0, N))
+        e = Edge(random.randint(0, N - 1), random.randint(0, N - 1))
         if not (e.src == e.dest or e in edges or Edge(e.dest, e.src) in edges):
             edges.append(e)
 
@@ -41,3 +42,11 @@ class Graph:
         for e in self.E:
             self.adj[e.src].append(e.dest)
             self.adj[e.dest].append(e.src)
+
+    def print_graph(self):
+        for i in range(len(self.V)):
+            print("Vertex " + str(i + 1) + ":", end="")
+            temp = self.adj[i]
+            for t in temp:
+                print(" -> {}".format(t + 1), end="")
+            print(" \n")
