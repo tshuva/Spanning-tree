@@ -1,6 +1,7 @@
 from heap import *
 from globals import *
 
+
 def mst_prim(graph, w, r):
     Q = MinHeap(max_size=len(graph.V))
     Q.build_heap(graph.V)
@@ -9,6 +10,9 @@ def mst_prim(graph, w, r):
         v.key = float('inf')
     r.key = 0
     r.pi = None
+
+    Q.min_heapify(Q.FRONT)
+
     while Q.size > 0:
         u = Q.extract_min()
         for v in graph.adj[u.id]:

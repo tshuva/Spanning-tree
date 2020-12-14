@@ -4,7 +4,7 @@ from prim import *
 
 
 def generate_weights(edges):
-    weights = [[float('inf')] * N] * N
+    weights = [[float('inf') for i in range(N)] for j in range(N)]
     for e in edges:
         if weights[e.src][e.dest] == float('inf'):
             w = random.randint(1, 100)
