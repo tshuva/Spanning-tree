@@ -16,7 +16,7 @@ def generate_weights(edges):
 def q1(g, w):
     r = g.V[random.randint(0, len(g.V) - 1)]  # pick random start
     mst_prim(g, w, r)
-    print_mst(g)
+    print_mst(g, r)
 
 
 if __name__ == '__main__':

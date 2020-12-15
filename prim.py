@@ -20,8 +20,10 @@ def mst_prim(graph, w, r):
                 v.key = w[u.id][v.id]
 
 
-def print_mst(g):
-    for v in g.V:
+def print_mst(g, start):
+    print('Printing MST starting from vertex {} with weight 0:'.format(start.id + 1))
+    for v in [v for v in g.V if v != start]:
+        print('Route to vertex {} (weight {}):'.format(v.id + 1, v.key), end='\t')
         temp = v
         while temp.pi is not None:
             print(str(temp.id + 1) + ' <-- ', end='')
