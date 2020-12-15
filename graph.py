@@ -3,7 +3,7 @@ from globals import *
 
 
 def generate_veritces():
-    return [Vertice(id=i) for i in range(N)]
+    return [Vertex(id=i) for i in range(N)]
 
 
 def generate_edges():
@@ -27,7 +27,7 @@ class Edge:
         return a or b
 
 
-class Vertice:
+class Vertex:
     def __init__(self, id, key=float('inf'), pi=float('inf')):
         self.id = id
         self.key = key
@@ -41,13 +41,24 @@ class Vertice:
 
     def __lt__(self, other):
         return self.key < other.key
+    
+    def __str__(self):
+        return str(self.id)
+    
+    def __repr__(self):
+        return "vertix " + str(self.id)
 
+    def __hash__(self):
+        return hash(self.id)
 
 class Graph:
 
-    def __init__(self, vertices=None, edges=None):
-        self.V = vertices if vertices else generate_veritces()
+    def __init__(self, Vertexs=None, edges=None):
+        self.V = Vertexs if Vertexs else generate_veritces()
         self.E = edges if edges else generate_edges()
+        
+        self.graph = { v : list([]) for v in set(self.V) }
+        self.set_edges(M)            
 
         # create adjacency lists
         self.adj = [[] for v in self.V]
@@ -64,3 +75,25 @@ class Graph:
             for t in temp:
                 print(" -> {}".format(t + 1), end="")
             print(" \n")
+
+
+    def set_edges(self,amount):
+        count = 0
+        while count < amount:
+            if self.add_edge(random.randint(0, N - 1), random.randint(0, N - 1)):
+                count = count + 1
+
+
+    def add_edge(self,src,dest):
+        src_v = Vertex(src)
+        dest_v = Vertex(dest)
+        if src!=dest and not any(x for x in self.graph[src_v] if x[0] == dest_v) :
+            w = random.randint(1, 100)        
+            self.graph[src_v].append((dest_v,w))
+            self.graph[dest_v].append((src_v,w))
+            return True
+        return False
+
+        
+    
+            
