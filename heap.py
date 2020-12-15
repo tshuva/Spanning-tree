@@ -1,66 +1,52 @@
-class MinHeap:
-    def __init__(self, max_size):
-        self.maxsize = max_size
-        self.size = 0
-        self.Heap = [0] * self.maxsize
-        self.FRONT = 1
+class Heap:
 
-    def get_parent(self, pos):
-        return pos // 2
+    def __init__(self):
+        self.heapList = [0]
+        self.currentSize = 0
 
-    def get_left_child(self, pos):
-        return 2 * pos
+    def perc_up(self, i):
+        while i // 2 > 0:
+            if self.heapList[i] < self.heapList[i // 2]:
+                tmp = self.heapList[i // 2]
+                self.heapList[i // 2] = self.heapList[i]
+                self.heapList[i] = tmp
+            i = i // 2
 
-    def get_right_child(self, pos):
-        return (2 * pos) + 1
+    def perc_down(self, i=1):
+        while (i * 2) <= self.currentSize:
+            mc = self.min_child(i)
+            if self.heapList[i] > self.heapList[mc]:
+                tmp = self.heapList[i]
+                self.heapList[i] = self.heapList[mc]
+                self.heapList[mc] = tmp
+            i = mc
 
-    def is_leaf(self, pos):
-        return (self.size // 2) <= pos <= self.size
+    def min_child(self, i):
+        if i * 2 + 1 > self.currentSize:
+            return i * 2
+        else:
+            if self.heapList[i * 2] < self.heapList[i * 2 + 1]:
+                return i * 2
+            else:
+                return i * 2 + 1
 
-    def swap(self, fpos, spos):
-        self.Heap[fpos], self.Heap[spos] = self.Heap[spos], self.Heap[fpos]
+    def insert(self, k):
+        self.heapList.append(k)
+        self.currentSize = self.currentSize + 1
+        self.perc_up(self.currentSize)
 
-    def insert(self, element):
-        if self.size >= self.maxsize:
-            return
-        self.size += 1
-        self.Heap[self.size - 1] = element
-
-        current = self.size - 1
-
-        while self.Heap[current] < self.Heap[self.get_parent(current)]:
-            self.swap(current, self.get_parent(current))
-            current = self.get_parent(current)
-
-    def min_heapify(self, pos):
-
-        # If the node is a non-leaf and greater than any of its children
-        if not self.is_leaf(pos):
-            if (self.Heap[pos] > self.Heap[self.get_left_child(pos)] or
-                    self.Heap[pos] > self.Heap[self.get_right_child(pos)]):
-
-                # Swap with the left child and heapify
-                # the left child
-                if self.Heap[self.get_left_child(pos)] < self.Heap[self.get_right_child(pos)]:
-                    self.swap(pos, self.get_left_child(pos))
-                    self.min_heapify(self.get_left_child(pos))
-
-                    # Swap with the right child and heapify
-                # the right child
-                else:
-                    self.swap(pos, self.get_right_child(pos))
-                    self.min_heapify(self.get_right_child(pos))
-
-    def build_heap(self, nodes):
-        for node in nodes:
-            self.insert(node)
-        for pos in range(self.size // 2, 0, -1):
-            self.min_heapify(pos)
+    def build_heap(self, alist):
+        i = len(alist) // 2
+        self.currentSize = len(alist)
+        self.heapList = [0] + alist[:]
+        while i > 0:
+            self.perc_down(i)
+            i = i - 1
 
     def extract_min(self):
-        popped = self.Heap[self.FRONT]
-        self.Heap[self.FRONT] = self.Heap[self.size - 1]
-        self.size -= 1
-        if self.size > 0:
-            self.min_heapify(self.FRONT)
-        return popped
+        ret_val = self.heapList[1]
+        self.heapList[1] = self.heapList[self.currentSize]
+        self.currentSize = self.currentSize - 1
+        self.heapList.pop()
+        self.build_heap(self.heapList[1:])
+        return ret_val
