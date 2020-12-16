@@ -37,7 +37,7 @@ class Vertex:
         return self.id == other.id
 
     def __gt__(self, other):
-        return self.key >= other.key
+        return self.key > other.key
 
     def __lt__(self, other):
         return self.key < other.key
@@ -68,12 +68,12 @@ class Graph:
             self.adj[e.src].append(e.dest)
             self.adj[e.dest].append(e.src)
 
-    def print_graph(self):
+    def print_graph(self, w=None):
         for i in range(len(self.V)):
             print("Vertex " + str(i + 1) + ":", end="")
             temp = self.adj[i]
-            for t in temp:
-                print(" -> {}".format(t + 1), end="")
+            for t in sorted(temp):
+                print(" -({})-> {}".format(w[i][t], t + 1), end='\n\t\t ')
             print(" \n")
 
 

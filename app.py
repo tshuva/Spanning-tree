@@ -16,11 +16,11 @@ def generate_weights(edges):
 def q1(g, w):
     r = g.V[random.randint(0, len(g.V) - 1)]  # pick random start
     mst_prim(g, w, r)
-    print_mst(g)
+    print_mst(g, r)
 
 
 if __name__ == '__main__':
     g = Graph()  # create graph
-    g.print_graph()
     w = generate_weights(g.E)
+    g.print_graph(w)
     q1(g, w)
