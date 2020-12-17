@@ -57,6 +57,20 @@ class Graph:
             self.adj[e.src].append(e.dest)
             self.adj[e.dest].append(e.src)
 
+        " Make sure graph is connected"
+        empty_lists = [index for index, lst in enumerate(self.adj) if lst == []]
+        for v in empty_lists:
+            self._connect_vertice(v)
+
+    def _connect_vertice(self, vertice):
+        dest = random.randint(0, N - 1)
+        while dest == vertice:
+            dest = random.randint(0, N - 1)
+        self.E.append(Edge(vertice, dest))
+
+        self.adj[vertice].append(dest)
+        self.adj[dest].append(vertice)
+
     def print_graph(self, w=None):
         for i in range(len(self.V)):
             print("Vertex " + str(i + 1) + ":", end="")

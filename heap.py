@@ -4,49 +4,43 @@ class Heap:
         self.heapList = [0]
         self.currentSize = 0
 
-    def perc_up(self, i):
-        while i // 2 > 0:
-            if self.heapList[i] < self.heapList[i // 2]:
-                tmp = self.heapList[i // 2]
-                self.heapList[i // 2] = self.heapList[i]
-                self.heapList[i] = tmp
-            i = i // 2
+    def left(self, i):
+        return 2 * i
 
-    def perc_down(self, i=1):
-        while (i * 2) <= self.currentSize:
-            mc = self.min_child(i)
-            if self.heapList[i] > self.heapList[mc]:
-                tmp = self.heapList[i]
-                self.heapList[i] = self.heapList[mc]
-                self.heapList[mc] = tmp
-            i = mc
+    def right(self, i):
+        return 2 * i + 1
 
-    def min_child(self, i):
-        if i * 2 + 1 > self.currentSize:
-            return i * 2
+    def parent(self, i):
+        return int(i / 2)
+
+    def exchange(self, i, j):
+        temp = self.heapList[j]
+        self.heapList[j] = self.heapList[i]
+        self.heapList[i] = temp
+
+    def heapify(self, i):
+        l = self.left(i)
+        r = self.right(i)
+        if l <= self.currentSize and self.heapList[l] < self.heapList[i]:
+            smallest = l
         else:
-            if self.heapList[i * 2] < self.heapList[i * 2 + 1]:
-                return i * 2
-            else:
-                return i * 2 + 1
+            smallest = i
+        if r <= self.currentSize and self.heapList[r] < self.heapList[smallest]:
+            smallest = r
+        if smallest != i:
+            self.exchange(i, smallest)
+            self.heapify(smallest)
 
-    def insert(self, k):
-        self.heapList.append(k)
-        self.currentSize = self.currentSize + 1
-        self.perc_up(self.currentSize)
-
-    def build_heap(self, alist):
-        i = len(alist) // 2
-        self.currentSize = len(alist)
-        self.heapList = [0] + alist[:]
-        while i > 0:
-            self.perc_down(i)
-            i = i - 1
+    def build_heap(self, array):
+        self.heapList[1:] = array
+        self.currentSize = len(array)
+        for i in range(int(len(array)/2), 0, -1):
+            self.heapify(i)
 
     def extract_min(self):
         ret_val = self.heapList[1]
-        self.heapList[1] = self.heapList[self.currentSize]
+        self.exchange(1, self.currentSize)
         self.currentSize = self.currentSize - 1
         self.heapList.pop()
-        self.build_heap(self.heapList[1:])
+        self.heapify(1)
         return ret_val

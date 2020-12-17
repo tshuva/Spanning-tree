@@ -20,7 +20,7 @@ def q1(g, w):
 
 
 if __name__ == '__main__':
-    g = Graph()  # create graph
+    g = Graph()
     w = generate_weights(g.E)
     g.print_graph(w)
     q1(g, w)
