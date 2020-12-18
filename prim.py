@@ -6,12 +6,9 @@ from copy import deepcopy
 
 def mst_prim(graph, w, r):
     Q = Heap()
-    items = graph.V
-    for v in items:
-        v.key = float('inf')
     r.key = 0
     r.pi = None
-    Q.build_heap(items)
+    Q.build_heap(graph.V)
     while Q.currentSize > 0:
         u = Q.extract_min()
         for v in graph.adj[u.id]:
