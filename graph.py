@@ -8,10 +8,13 @@ def generate_veritces():
 
 def generate_edges():
     edges = []
+    src = random.randint(0, N - 1)
     while len(edges) < M:
-        e = Edge(random.randint(0, N - 1), random.randint(0, N - 1))
+        dest = random.randint(0, N - 1)
+        e = Edge(src, dest)
         if not (e.src == e.dest or e in edges):
             edges.append(e)
+            src = dest
 
     return edges
 
@@ -20,6 +23,7 @@ class Vertex:
         self.id = id
         self.key = key
         self.pi = pi
+        self.level = float('inf')
 
     def __eq__(self, other):
         return self.id == other.id
@@ -65,6 +69,20 @@ class Graph:
         for e in self.E:
             self.adj[e.src].append(e.dest)
             self.adj[e.dest].append(e.src)
+
+        " Make sure graph is connected"
+        empty_lists = [index for index, lst in enumerate(self.adj) if lst == []]
+        for v in empty_lists:
+            self._connect_vertice(v)
+
+    def _connect_vertice(self, vertice):
+        dest = random.randint(0, N - 1)
+        while dest == vertice:
+            dest = random.randint(0, N - 1)
+        self.E.append(Edge(vertice, dest))
+
+        self.adj[vertice].append(dest)
+        self.adj[dest].append(vertice)
 
     def print_graph(self, w=None):
         for i in range(len(self.V)):
