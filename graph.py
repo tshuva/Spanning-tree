@@ -32,6 +32,7 @@ class Vertice:
         self.id = id
         self.key = key
         self.pi = pi
+        self.level = float('inf')
 
     def __eq__(self, other):
         return self.id == other.id

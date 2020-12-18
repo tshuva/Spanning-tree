@@ -8,6 +8,7 @@ def mst_prim(graph, w, r):
     Q = Heap()
     r.key = 0
     r.pi = None
+    r.level = 0
     Q.build_heap(graph.V)
     while Q.currentSize > 0:
         u = Q.extract_min()
@@ -16,6 +17,7 @@ def mst_prim(graph, w, r):
             if v in Q.heapList[1:] and w[u.id][v.id] < v.key:
                 v.pi = u
                 v.key = w[u.id][v.id]
+                v.level = u.level + 1
                 Q.build_heap(Q.heapList[1:])
 
 
