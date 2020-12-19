@@ -8,10 +8,13 @@ def generate_veritces():
 
 def generate_edges():
     edges = []
+    src = random.randint(0, N - 1)
     while len(edges) < M:
-        e = Edge(random.randint(0, N - 1), random.randint(0, N - 1))
+        dest = random.randint(0, N - 1)
+        e = Edge(src, dest)
         if not (e.src == e.dest or e in edges):
             edges.append(e)
+            src = dest
 
     return edges
 
