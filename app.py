@@ -35,29 +35,28 @@ def q1(g, w,r):
 
 
 if __name__ == '__main__':
-    for i in range(10000):
-        g = Graph()
-        w = generate_weights(g.E)
-        g.print_graph(w)
-        r = g.V[random.randint(0, len(g.V) - 1)]  # pick random start
-        q1(g, w, r)
+    g = Graph()
+    w = generate_weights(g.E)
+    g.print_graph(w)
+    r = g.V[random.randint(0, len(g.V) - 1)]  # pick random start
+    q1(g, w, r)
 
+    src = random.randint(0, N - 1)
+    dest = random.randint(0, N - 1)
+    while (dest in g.adj[src] or src == dest):           
         src = random.randint(0, N - 1)
-        dest = random.randint(0, N - 1)
-        while (dest in g.adj[src] or src == dest):           
-            src = random.randint(0, N - 1)
-            dest = random.randint(0, N - 1)     
-        
-        # make new edge the most 'expensive' for both veritces
-        new_w = max(max_with_inf(x) for x in w)  + 1 
-        new_edge(g, w, src, dest, new_w)
-        print("First try: \n The new edge is " + str(Edge(src,dest)) + " and thie weight is " + str(new_w))
-        q2(g, src, dest, w)
-        print_mst(g, r)
+        dest = random.randint(0, N - 1)     
+    
+    # make new edge the most 'expensive' for both veritces
+    new_w = max(max_with_inf(x) for x in w)  + 1 
+    new_edge(g, w, src, dest, new_w)
+    print("First try: \n The new edge is " + str(Edge(src,dest)) + " and thie weight is " + str(new_w))
+    q2(g, src, dest, w)
+    print_mst(g, r)
 
-        # make new edge the most 'cheap' for both veritces
-        new_w = min(w[src] + w[dest]) - 1
-        new_edge(g, w, src, dest, new_w)
-        print("second try: \n  The new edge is " +str(Edge(src,dest)) + " and the weight is " + str(new_w))
-        q2(g, src, dest, w)
-        print_mst(g, r)
+    # make new edge the most 'cheap' for both veritces
+    new_w = min(w[src] + w[dest]) - 1
+    new_edge(g, w, src, dest, new_w)
+    print("second try: \n  The new edge is " +str(Edge(src,dest)) + " and the weight is " + str(new_w))
+    q2(g, src, dest, w)
+    print_mst(g, r)
