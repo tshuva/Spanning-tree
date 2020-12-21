@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     " Create new edge that is the most 'expensive' in the graph "
     new_edge(g, w, src, dest, MAX_WEIGHT + 1)
-    print("First try: \n The new edge is " + str(Edge(src, dest)) + " and thie weight is " + str(new_w))
+    print("First try: \n The new edge is " + str(Edge(src, dest)) + " and thie weight is " + str(MAX_WEIGHT + 1))
 
     " Recalculate MST with an edge that does not affect it "
     q2(g, src, dest, w)
@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     " Create new edge that is the 'cheapest' in the graph "
     new_edge(g, w, src, dest, 0)
-    print("second try: \n  The new edge is " + str(Edge(src, dest)) + " and the weight is " + str(new_w))
+    print("second try: \n  The new edge is " + str(Edge(src, dest)) + " and the weight is " + str(0))
 
     " Recalculate MST with an edge that affects it "
     q2(g, src, dest, w)
