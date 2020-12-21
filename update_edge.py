@@ -18,7 +18,6 @@ def q2(g, source, destination, w):
     src = g.V[source]
     dest = g.V[destination]
     max_edge = (Edge(source, destination), w[source][destination])
-    curr = Vertex(-1)
     while dest != start_of_circle or src != start_of_circle:
         if ((dest == start_of_circle) or
                 (src is not start_of_circle and

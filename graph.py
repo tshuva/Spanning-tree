@@ -6,6 +6,13 @@ def generate_vertices():
     return [Vertex(id=i) for i in range(N)]
 
 
+def new_edge(g, w, src, dest, new_w):
+    w[src][dest] = new_w
+    w[dest][src] = new_w
+    g.adj[src].append(dest)
+    g.adj[dest].append(src)
+
+
 def generate_edges():
     edges = []
     not_Visted = list(range(0, N))

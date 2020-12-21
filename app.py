@@ -6,25 +6,10 @@ def generate_weights(edges):
     weights = [[float('inf') for i in range(N)] for j in range(N)]
     for e in edges:
         if weights[e.src][e.dest] == float('inf'):
-            w = random.randint(1, 100)
+            w = random.randint(1, MAX_WEIGHT)
             weights[e.src][e.dest] = w
             weights[e.dest][e.src] = w
     return weights
-
-
-def max_with_inf(list):
-    maximum = float('-inf')
-    for item in list:
-        if item > maximum and item != float('inf'):
-            maximum = item
-    return maximum
-
-
-def new_edge(g, w, src, dest, new_w):
-    w[src][dest] = new_w
-    w[dest][src] = new_w
-    g.adj[src].append(dest)
-    g.adj[dest].append(src)
 
 
 if __name__ == '__main__':
@@ -44,18 +29,16 @@ if __name__ == '__main__':
         src = random.randint(0, N - 1)
         dest = random.randint(0, N - 1)
 
-    " Create new edge that is the most 'expensive' for both vertices "
-    new_w = max(max_with_inf(x) for x in w) + 1
-    new_edge(g, w, src, dest, new_w)
+    " Create new edge that is the most 'expensive' in the graph "
+    new_edge(g, w, src, dest, MAX_WEIGHT + 1)
     print("First try: \n The new edge is " + str(Edge(src, dest)) + " and thie weight is " + str(new_w))
 
     " Recalculate MST with an edge that does not affect it "
     q2(g, src, dest, w)
     print_mst(g, r)
 
-    " Create new edge that is the 'cheapest' for both vertices "
-    new_w = min(w[src] + w[dest]) - 1
-    new_edge(g, w, src, dest, new_w)
+    " Create new edge that is the 'cheapest' in the graph "
+    new_edge(g, w, src, dest, 0)
     print("second try: \n  The new edge is " + str(Edge(src, dest)) + " and the weight is " + str(new_w))
 
     " Recalculate MST with an edge that affects it "

@@ -1,2 +1,3 @@
 N = 20
 M = 50
+MAX_WEIGHT = 100
