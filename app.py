@@ -1,5 +1,9 @@
+# מיקי מאירסון 207349010
+# נעם תשובה 207576109
+
 from prim import *
 from update_edge import q2
+from graph import *
 
 
 def generate_weights(edges):
@@ -29,16 +33,18 @@ if __name__ == '__main__':
         src = random.randint(0, N - 1)
         dest = random.randint(0, N - 1)
 
-    " Create new edge that is the most 'expensive' in the graph "
-    new_edge(g, w, src, dest, MAX_WEIGHT + 1)
+    " Create new edge that is the most 'expensive' in graph "
+    new_w = MAX_WEIGHT + 1
+    new_edge(g, w, src, dest, new_w)
     print("First try: \n The new edge is " + str(Edge(src, dest)) + " and thie weight is " + str(new_w))
 
     " Recalculate MST with an edge that does not affect it "
     q2(g, src, dest, w)
     print_mst(g, r)
 
-    " Create new edge that is the 'cheapest' in the graph "
-    new_edge(g, w, src, dest, 0)
+    " Create new edge that is the 'cheapest' in graph "
+    new_w = 0
+    new_edge(g, w, src, dest, new_w)
     print("second try: \n  The new edge is " + str(Edge(src, dest)) + " and the weight is " + str(new_w))
 
     " Recalculate MST with an edge that affects it "

@@ -1,3 +1,6 @@
+# מיקי מאירסון 207349010
+# נעם תשובה 207576109
+
 import random
 from globals import *
 
@@ -15,13 +18,13 @@ def new_edge(g, w, src, dest, new_w):
 
 def generate_edges():
     edges = []
-    not_Visted = list(range(0, N))
-    src = random.choice(not_Visted)
+    not_visited = list(range(0, N))
+    src = random.choice(not_visited)
     first = src
 
-    while len(not_Visted) > 0:
-        not_Visted.remove(src)
-        dest = random.choice(not_Visted) if not_Visted else first
+    while len(not_visited) > 0:
+        not_visited.remove(src)
+        dest = random.choice(not_visited) if not_visited else first
         e = Edge(src, dest)
         if not (e.src == e.dest or e in edges):
             edges.append(e)

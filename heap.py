@@ -1,3 +1,6 @@
+# מיקי מאירסון 207349010
+# נעם תשובה 207576109
+
 class Heap:
 
     def __init__(self):
@@ -34,7 +37,7 @@ class Heap:
     def build_heap(self, array):
         self.heapList[1:] = array
         self.currentSize = len(array)
-        for i in range(int(len(array)/2), 0, -1):
+        for i in range(int(len(array) / 2), 0, -1):
             self.heapify(i)
 
     def extract_min(self):

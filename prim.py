@@ -1,7 +1,7 @@
+# מיקי מאירסון 207349010
+# נעם תשובה 207576109
+
 from heap import *
-from globals import *
-from graph import *
-from copy import deepcopy
 
 
 def mst_prim(graph, w, r):
@@ -29,6 +29,7 @@ def print_mst(g, start):
             str_to_print += str(temp.id + 1) + ' <-- '
             temp = temp.pi
         print(str_to_print + str(temp.id + 1))
+    print()
 
 
 def q1(g, w, r):
