@@ -29,3 +29,8 @@ def print_mst(g, start):
             str_to_print += str(temp.id + 1) + ' <-- '
             temp = temp.pi
         print(str_to_print + str(temp.id + 1))
+
+
+def q1(g, w, r):
+    mst_prim(g, w, r)
+    print_mst(g, r)

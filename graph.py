@@ -2,7 +2,7 @@ import random
 from globals import *
 
 
-def generate_veritces():
+def generate_vertices():
     return [Vertex(id=i) for i in range(N)]
 
 
@@ -29,6 +29,7 @@ def generate_edges():
 
     return edges
 
+
 class Vertex:
     def __init__(self, id, key=float('inf'), pi=float('inf')):
         self.id = id
@@ -43,12 +44,12 @@ class Vertex:
 
     def __lt__(self, other):
         return self.key < other.key
-    
+
     def __str__(self):
         return str(self.id + 1)
-    
+
     def __repr__(self):
-        return "vertix " + str(self.id + 1)
+        return "vertex " + str(self.id + 1)
 
 
 class Edge:
@@ -62,15 +63,19 @@ class Edge:
         return a or b
 
     def __str__(self):
-        return "Edge " + str(self.src + 1)+ " ~> " + str(self.dest + 1)
+        return "Edge " + str(self.src + 1) + " ~> " + str(self.dest + 1)
+
     def __repr__(self):
-        return "Edge " + str(self.src + 1)+ " ~> " + str(self.dest + 1)
+        return "Edge " + str(self.src + 1) + " ~> " + str(self.dest + 1)
+
 
 class Graph:
 
-    def __init__(self, Vertexs=list(), edges=list()):
-        self.V = Vertexs if Vertexs else generate_veritces()
-        self.E = edges if edges else generate_edges()        
+    def __init__(self, vertices=None, edges=None):
+        if vertices is None:
+            vertices = list()
+        self.V = vertices if vertices else generate_vertices()
+        self.E = edges if edges else generate_edges()
 
         # create adjacency lists
         self.adj = [[] for v in self.V]
